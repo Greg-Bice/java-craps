@@ -5,7 +5,7 @@ public class Die {
 	public Die() {
 		
 		// TODO: Determine DieVaue.. a random number between 1 and 6
-		DieValue = (int) ( Math.random() * 6 ) + 1;
+		DieValue = (int) ( Math.random() * 6 ) + 1; // Casting to int allows the avoidance of using floor
 		
 	}
 
