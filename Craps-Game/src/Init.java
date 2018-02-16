@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Init {
 	
-	public static Scanner input = new Scanner( System.in );
+	public static Scanner input = new Scanner( System.in ); // Initializing scanner for user input on extra questions at start of game
 	
-	private static String[] instructions = new String[] { 
+	private static String[] instructions = new String[] { // Array of instructions for game; not very detailed.
 			
 			"Welcome to Craps!",
 			"The game revolves around you, the shooter.",
@@ -19,32 +19,32 @@ public class Init {
 			
 			};
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { // init.lua equivalent
 		
-		for ( String v: instructions ) {
-			System.out.println( v );
+		for ( String v: instructions ) { // For each element String in the array instructions do blah
+			System.out.println( v ); // Print off the instructions one-by-one
 		}
 		
-		QueryStart( "Would you like to play?" );
+		QueryStart( "Would you like to play?" ); // Yes / No response accepted
 				
 
 	}
 	
-	public static void QueryStart( String query ) {
+	public static void QueryStart( String query ) { // Made a main method so it could be called from the Round Class for recursive purposes
 		
-		System.out.println( String.format( "%s (Y/N)", query ) );
+		System.out.println( String.format( "%s (Y/N)", query ) ); // Asks the query parameter with the added Y/N added on.
 		
-		String retort = input.nextLine().toLowerCase();
+		String retort = input.nextLine().toLowerCase(); // Gets the user's response and makes it lowercase for easier comparison.
 		
-		while ( !retort.equals( "y" ) && !retort.equals( "n" ) ) {
-			System.out.println( "Invalid response; please, try again!" );
-			retort = input.nextLine().toLowerCase();
+		while ( !retort.equals( "y" ) && !retort.equals( "n" ) ) { // Only care about responses 'y' and 'n'
+			System.out.println( "Invalid response; please, try again!" ); // Same as above
+			retort = input.nextLine().toLowerCase(); // Tries again to check if retort is 'y' or 'n'
 		}
 		
 		if ( retort.equals( "n" ) ) {
 			
 			System.out.println( "Okay, goodbye!" );
-			System.exit(0);
+			System.exit(0); // Exits the program; not sure the significance of the 0 but it makes it work. Exit code perhaps?
 			
 		} else {
 			

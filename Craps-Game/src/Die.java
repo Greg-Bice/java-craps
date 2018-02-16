@@ -10,6 +10,6 @@ public class Die {
 	}
 
 	public int getDieValue() {
-		return DieValue;
+		return DieValue; // returns the die's value.
 	}
 }
