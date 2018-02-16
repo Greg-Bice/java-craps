@@ -3,23 +3,24 @@ import java.util.LinkedList;
 
 public class Round {
 
-	private eGameResult gameResult;
+	private eGameResult gameResult; // Prepares the eGameResult Enumeration
 	
 	private LinkedList<Roll> rolls = new LinkedList<Roll>(); // Contains the list of all the rolls
 	
-	private LinkedList<Integer> craps = new LinkedList<Integer>( Arrays.asList( 2, 3, 12 ) ); // Linked list allows for some helpful functions over Arrays
-	private LinkedList<Integer> naturals = new LinkedList<Integer>( Arrays.asList( 7, 11 ) ); // Not sure if there is another way to define a LinkedList Literal
+	// I'm not sure if there is another way to define a LinkedList Literal but this seems to work for now.
+	private LinkedList<Integer> craps = new LinkedList<Integer>( Arrays.asList( 2, 3, 12 ) );
+	private LinkedList<Integer> naturals = new LinkedList<Integer>( Arrays.asList( 7, 11 ) );
 	private LinkedList<Integer> points = new LinkedList<Integer>( Arrays.asList( 4, 5, 6, 8, 9, 10 ) );
 	
-	private boolean continueRound = true; // used for Looping game
+	private boolean continueRound = true; // used for Looping game rolls
 	
 	
 	public Round() {
 		
-		while ( continueRound ) {
+		while ( continueRound ) { // Check to see if the loop should continue
 		
 			Roll initialRoll = new Roll(); // New instance of the roll.
-			rolls.add( initialRoll );
+			rolls.add( initialRoll ); // Adds the newest roll to the rolls Linklist
 		
 			boolean isFirstRound = ( rolls.size() == 1 ); // First round has special interactions so checks for that first.
 			
@@ -27,18 +28,18 @@ public class Round {
 			
 			if ( isFirstRound ) { // The initial round has a special case for the CRAPS and NATURALS enums
 			
-				switch( gameResult ) {
+				switch( gameResult ) { // Switch statement #1 of the game results;
 				
 					case CRAPS: case NATURAL: // Need to roll a POINT to continue past the first round
 							
-						System.out.println( String.format( "[ROUND OVER] Your initial roll was a [%d]! %s!", initialRoll.getScore(), gameResult ) );
-						continueRound = false;
+						System.out.println( String.format( "[ROUND OVER] Your initial roll was a [%d]! %s!", initialRoll.getScore(), gameResult ) ); // Lose
+						continueRound = false; // Round is over and loop should not 
 							
-						break;
+						break; // Terminates this block of switch statement
 						
 					case POINT:
 						
-						System.out.println( String.format( "[START] Your initial roll was a [%d]! Good luck!", initialRoll.getScore() ) );
+						System.out.println( String.format( "[START] Your initial roll was a [%d]! Good luck!", initialRoll.getScore() ) ); // Begin game
 						break;
 						
 						
@@ -52,28 +53,28 @@ public class Round {
 			
 			} else {
 				
-				System.out.println( String.format( "Roll #%d - %d", rolls.size(), initialRoll.getScore() ) );
+				System.out.println( String.format( "Roll #%d - %d", rolls.size(), initialRoll.getScore() ) ); // Shows the roll is progressing with round
 				
-				switch( gameResult ) {
+				switch( gameResult ) { // Switch statement #2 for every round OTHER than the initial
 					
-					case CRAPS: case NATURAL: case POINT:
+					case CRAPS: case NATURAL: case POINT: // Craps and Natural no longer end the round so they can all be checked for this.
 						
-						if ( initialRoll.getScore() == rolls.getFirst().getScore() ) { 
+						if ( initialRoll.getScore() == rolls.getFirst().getScore() ) { // Checks to see if the initial roll has been met again
 							
-							System.out.println( "[Winner] You've matched point; you win!" );
-							continueRound = false;
+							System.out.println( "[Winner] You've matched point; you win!" ); // Winner!
+							continueRound = false; // Ends game loop
 							
 						} 
 					
 						break;
 						
-					case SEVEN_OUT:
+					case SEVEN_OUT: // Rolling a 7 will still cause a loss
 						
-						System.out.println( "[Loser] You've rolled a Seven-Out; you lose!" );
+						System.out.println( "[Loser] You've rolled a Seven-Out; you lose!" ); // Loser!
 						continueRound = false;
 						break;
 						
-					default:
+					default: // Just in case to catch an exception; never occurred however
 						
 						System.out.println( "Default #2 for the gameResult switch statement; this shouldn't happen." );
 						break;
@@ -91,15 +92,15 @@ public class Round {
 	
 	private eGameResult shotResult( int score, boolean firstRound ) {
 		
-		if ( craps.contains( score ) ) { 
+		if ( craps.contains( score ) ) { // Checks if the value is in the CRAPS list
 			
-			return eGameResult.CRAPS; 
+			return eGameResult.CRAPS;
 			
-		} else if ( naturals.contains( score ) ) {
+		} else if ( naturals.contains( score ) ) { // Chceks if the value is in the NATURALS list
 			
-			return ( firstRound || score == 11 ) ? eGameResult.NATURAL : eGameResult.SEVEN_OUT;
+			return ( firstRound || score == 11 ) ? eGameResult.NATURAL : eGameResult.SEVEN_OUT; // 7s can be a NATURAL on the first round, but a SEVEN_OUT on others
 			
-		} else if ( points.contains( score ) ) {
+		} else if ( points.contains( score ) ) { // Checks if the value is in the POINT list
 			
 			return eGameResult.POINT;
 			
